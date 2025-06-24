@@ -1,0 +1,255 @@
+# Global values
+global:
+  imageRegistry: "docker.io"
+  imagePullSecrets:
+    - name: regcred
+  storageClass: "standard"
+  nodeSelector:
+    kubernetes.io/os: linux
+  environment: production
+
+# Application configuration
+replicaCount: 2
+deploymentStrategy:
+  type: RollingUpdate
+  rollingUpdate:
+    maxSurge: 1
+    maxUnavailable: 0
+
+image:
+  repository: example/microservice-app
+  tag: "1.4.2"
+  pullPolicy: IfNotPresent
+
+nameOverride: ""
+fullnameOverride: ""
+
+serviceAccount:
+  create: true
+  annotations:
+    eks.amazonaws.com/role-arn: "arn:aws:iam::123456789012:role/my-service-role"
+
+podAnnotations:
+  prometheus.io/scrape: "true"
+  prometheus.io/port: "8080"
+
+podSecurityContext:
+  fsGroup: 1000
+
+containerSecurityContext:
+  allowPrivilegeEscalation: false
+  readOnlyRootFilesystem: true
+  runAsNonRoot: true
+  runAsUser: 1000
+  capabilities:
+    drop:
+      - ALL
+
+service:
+  type: ClusterIP
+  port: 80
+  targetPort: 8080
+
+ingress:
+  enabled: true
+  className: "nginx"
+  annotations:
+    cert-manager.io/cluster-issuer: "letsencrypt-prod"
+    nginx.ingress.kubernetes.io/ssl-redirect: "true"
+  hosts:
+    - host: app.example.com
+      paths:
+        - path: /
+          pathType: Prefix
+  tls:
+    - secretName: app-example-tls
+      hosts:
+        - app.example.com
+
+resources:
+  limits:
+    cpu: 500m
+    memory: 512Mi
+  requests:
+    cpu: 250m
+    memory: 256Mi
+
+autoscaling:
+  enabled: true
+  minReplicas: 2
+  maxReplicas: 10
+  targetCPUUtilizationPercentage: 80
+  targetMemoryUtilizationPercentage: 80
+
+# Storage configuration
+persistence:
+  enabled: true
+  storageClass: ""
+  accessMode: ReadWriteOnce
+  size: 10Gi
+
+# Environment-specific configurations
+environments:
+  development:
+    replicaCount: 1
+    resources:
+      limits:
+        cpu: 200m
+        memory: 256Mi
+      requests:
+        cpu: 100m
+        memory: 128Mi
+  staging:
+    replicaCount: 1
+    ingress:
+      hosts:
+        - host: staging.app.example.com
+  production:
+    replicaCount: 3
+    ingress:
+      hosts:
+        - host: app.example.com
+
+# Dependencies configuration
+redis:
+  enabled: true
+  auth:
+    password: ""
+    existingSecret: "redis-credentials"
+    existingSecretPasswordKey: "redis-password"
+  master:
+    persistence:
+      size: 8Gi
+  replica:
+    replicaCount: 2
+    persistence:
+      size: 8Gi
+
+rabbitmq:
+  enabled: true
+  auth:
+    username: user
+    password: ""
+    existingSecret: "rabbitmq-credentials"
+    existingSecretPasswordKey: "rabbitmq-password"
+  persistence:
+    size: 8Gi
+  replicaCount: 3
+  resources:
+    limits:
+      cpu: 500m
+      memory: 1Gi
+    requests:
+      cpu: 250m
+      memory: 512Mi
+
+postgresql:
+  enabled: true
+  auth:
+    username: postgres
+    password: ""
+    database: app_database
+    existingSecret: "postgresql-credentials"
+  primary:
+    persistence:
+      size: 10Gi
+  readReplicas:
+    replicaCount: 1
+    persistence:
+      size: 10Gi
+
+mongodb:
+  enabled: false
+  auth:
+    rootPassword: ""
+    username: mongodb
+    password: ""
+    database: app_mongodb
+    existingSecret: "mongodb-credentials"
+  architecture: replicaset
+  replicaCount: 3
+  persistence:
+    size: 10Gi
+
+kafka:
+  enabled: false
+  replicaCount: 3
+  persistence:
+    size: 20Gi
+  resources:
+    limits:
+      cpu: 1000m
+      memory: 2Gi
+    requests:
+      cpu: 500m
+      memory: 1Gi
+
+# Feature flags
+features:
+  monitoring:
+    enabled: true
+  logging:
+    enabled: true
+  tracing:
+    enabled: true
+
+# Monitoring stack configuration
+monitoring:
+  enabled: true
+  prometheus:
+    serviceAccount:
+      create: true
+      annotations:
+        eks.amazonaws.com/role-arn: "arn:aws:iam::123456789012:role/prometheus-role"
+    server:
+      retention: 15d
+      persistentVolume:
+        size: 50Gi
+  grafana:
+    adminPassword: ""
+    existingSecret: "grafana-credentials"
+    persistence:
+      size: 10Gi
+    dashboardProviders:
+      dashboardproviders.yaml:
+        apiVersion: 1
+        providers:
+        - name: 'default'
+          orgId: 1
+          folder: ''
+          type: file
+          disableDeletion: false
+          editable: true
+          options:
+            path: /var/lib/grafana/dashboards/default
+
+# Logging stack configuration
+elastic-stack:
+  enabled: true
+  elasticsearch:
+    master:
+      replicaCount: 3
+      persistence:
+        size: 30Gi
+    data:
+      replicaCount: 3
+      persistence:
+        size: 100Gi
+  kibana:
+    resources:
+      limits:
+        cpu: 500m
+        memory: 1Gi
+      requests:
+        cpu: 200m
+        memory: 512Mi
+
+# Tracing configuration
+tracing:
+  enabled: true
+  jaeger:
+    storage:
+      type: elasticsearch
+      options:
+        es:
+          server-urls: http://microservices-platform-elasticsearch:9200

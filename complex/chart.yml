@@ -1,0 +1,96 @@
+apiVersion: v2
+name: microservices-platform
+description: A Helm chart for deploying a complete microservices platform
+type: application
+version: 1.5.2
+appVersion: "2.3.1"
+kubeVersion: ">=1.22.0-0"
+home: https://github.com/example-org/microservices-platform
+sources:
+  - https://github.com/example-org/microservices-platform
+  - https://github.com/example-org/auth-service
+  - https://github.com/example-org/api-gateway
+maintainers:
+  - name: John Doe
+    email: john.doe@example.com
+    url: https://github.com/johndoe
+  - name: Jane Smith
+    email: jane.smith@example.com
+    url: https://github.com/janesmith
+icon: https://example.org/microservices-platform-logo.png
+keywords:
+  - microservices
+  - kubernetes
+  - platform
+annotations:
+  artifacthub.io/changes: |
+    - Added support for OpenTelemetry integration
+    - Fixed bug in authentication service
+    - Updated Redis dependency to latest version
+  artifacthub.io/prerelease: "false"
+  artifacthub.io/license: Apache-2.0
+dependencies:
+  - name: redis
+    version: "17.11.3"
+    repository: "https://charts.bitnami.com/bitnami"
+    condition: redis.enabled
+  - name: rabbitmq
+    version: "11.16.2"
+    repository: "https://charts.bitnami.com/bitnami"
+    condition: rabbitmq.enabled
+    tags:
+      - messaging
+  - name: postgresql
+    version: "12.5.7"
+    repository: "https://charts.bitnami.com/bitnami"
+    condition: postgresql.enabled
+    tags:
+      - database
+  - name: mongodb
+    version: "13.9.1"
+    repository: "https://charts.bitnami.com/bitnami"
+    condition: mongodb.enabled
+    tags:
+      - database
+  - name: kafka
+    version: "23.0.7"
+    repository: "https://charts.bitnami.com/bitnami"
+    condition: kafka.enabled
+    tags:
+      - messaging
+  - name: elasticsearch
+    version: "19.5.10"
+    repository: "https://charts.bitnami.com/bitnami"
+    condition: elastic-stack.enabled
+    tags:
+      - logging
+  - name: kibana
+    version: "10.4.2"
+    repository: "https://charts.bitnami.com/bitnami"
+    condition: elastic-stack.enabled
+    tags:
+      - logging
+  - name: prometheus
+    version: "19.6.1"
+    repository: "https://prometheus-community.github.io/helm-charts"
+    condition: monitoring.enabled
+    tags:
+      - monitoring
+  - name: grafana
+    version: "6.59.0"
+    repository: "https://grafana.github.io/helm-charts"
+    condition: monitoring.enabled
+    tags:
+      - monitoring
+  - name: jaeger
+    version: "0.71.3"
+    repository: "https://jaegertracing.github.io/helm-charts"
+    condition: tracing.enabled
+    tags:
+      - tracing
+  - name: cert-manager
+    version: "1.12.3"
+    repository: "https://charts.jetstack.io"
+    condition: cert-manager.enabled
+    tags:
+      - security

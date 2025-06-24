@@ -1,0 +1,28 @@
+dependencies:
+  - name: nginx-ingress
+    version: "4.7.1"
+    repository: "https://kubernetes.github.io/ingress-nginx"
+  - name: cert-manager
+    version: "1.12.3"
+    repository: "https://charts.jetstack.io"
+    condition: cert-manager.enabled
+  - name: prometheus
+    version: "19.6.1"
+    repository: "https://prometheus-community.github.io/helm-charts"
+    condition: monitoring.enabled
+  - name: grafana
+    version: "6.59.0" 
+    repository: "https://grafana.github.io/helm-charts"
+    condition: monitoring.enabled
+  - name: elasticsearch
+    version: "7.17.3"
+    repository: "https://helm.elastic.co"
+    condition: logging.enabled
+  - name: fluentd
+    version: "2.6.2"
+    repository: "https://fluent.github.io/helm-charts"
+    condition: logging.enabled
+  - name: kibana
+    version: "7.17.3"
+    repository: "https://helm.elastic.co"
+    condition: logging.enabled

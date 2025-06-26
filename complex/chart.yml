@@ -89,7 +89,7 @@ dependencies:
     tags:
       - tracing
   - name: cert-manager
-    version: "1.12.3"
+    version: 1.18.1
     repository: "https://charts.jetstack.io"
     condition: cert-manager.enabled
     tags:

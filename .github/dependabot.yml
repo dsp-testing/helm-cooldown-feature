@@ -9,20 +9,30 @@ updates:
     directory: "/v3" # Location of package manifests
     schedule:
       interval: "weekly"
+    cooldown:
+      default-days: 90
   - package-ecosystem: "helm" # See documentation for possible values
     directory: "/complex" # Location of package manifests
     schedule:
       interval: "weekly"
+    cooldown:
+      default-days: 90
   - package-ecosystem: "helm" # See documentation for possible values
     directory: "/nested" # Location of package manifests
     schedule:
       interval: "weekly"
+    cooldown:
+      default-days: 90
   - package-ecosystem: "helm" # See documentation for possible values
     directory: "/sweet-frontier" # Location of package manifests
     schedule:
       interval: "weekly"
+    cooldown:
+      default-days: 90
       
   - package-ecosystem: "helm" # See documentation for possible values
     directory: "/my-app" # Location of package manifests
     schedule:
       interval: "weekly"
+    cooldown:
+      default-days: 90

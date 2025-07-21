@@ -2,16 +2,7 @@
 # package ecosystems to update and where the package manifests are located.
 # Please see the documentation for all configuration options:
 # https://docs.github.com/code-security/dependabot/dependabot-version-updates/configuration-options-for-the-dependabot.yml-file
-
-version: 2
-updates:
-- package-ecosystem: "helm" # See documentation for possible values
-   directory: "/multiple-images" # Location of package manifests
-    schedule:
-   interval: "weekly"
-   cooldown:
-    default-days: 90
- # # - package-ecosystem: "helm" # See documentation for possible values
+# # - package-ecosystem: "helm" # See documentation for possible values
  #    directory: "/v3" # Location of package manifests
  #    schedule:
  #      interval: "weekly"
@@ -41,4 +32,14 @@ updates:
  #    schedule:
  #    interval: "weekly"
  #   cooldown:
-  #    default-days: 90
+ #    default-days: 90
+
+version: 2
+updates:
+- package-ecosystem: "helm" # See documentation for possible values
+  directory: "/multiple-images" # Location of package manifests
+  schedule:
+   interval: "weekly"
+  cooldown:
+    default-days: 90
+ 

@@ -46,6 +46,6 @@ updates:
   directory: "/v3" # Location of package manifests
   schedule:
    interval: "weekly"
-   cooldown:
+  cooldown:
      default-days: 90
  

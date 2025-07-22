@@ -42,8 +42,14 @@ updates:
 #    interval: "weekly"
 #   cooldown:
 #     default-days: 90
+# - package-ecosystem: "helm" # See documentation for possible values
+#   directory: "/v3" # Location of package manifests
+#   schedule:
+#    interval: "weekly"
+#   cooldown:
+#      default-days: 90
 - package-ecosystem: "helm" # See documentation for possible values
-  directory: "/v3" # Location of package manifests
+  directory: "/sweet-frontier" # Location of package manifests
   schedule:
    interval: "weekly"
   cooldown:

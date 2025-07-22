@@ -36,10 +36,16 @@
 
 version: 2
 updates:
+# - package-ecosystem: "helm" # See documentation for possible values
+#   directory: "/multiple-images" # Location of package manifests
+#   schedule:
+#    interval: "weekly"
+#   cooldown:
+#     default-days: 90
 - package-ecosystem: "helm" # See documentation for possible values
-  directory: "/multiple-images" # Location of package manifests
+  directory: "/v3" # Location of package manifests
   schedule:
    interval: "weekly"
-  cooldown:
-    default-days: 90
+   cooldown:
+     default-days: 90
  

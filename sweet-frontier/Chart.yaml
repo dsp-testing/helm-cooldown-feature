@@ -6,5 +6,5 @@
  appVersion: "1.16.0"
  dependencies:
    - name: frontierchart
-     version: "1.0.119807+c2277fddd003556d4982b86ef4e77fc84a41ed79.c5ac65508439f92c96227bdb045152b25f1a27d4"
+     version: 1.0.133853+a54d245f658bca85b8644a60949081727ad93ca0
      repository: oci://registry.sweet.security/helm

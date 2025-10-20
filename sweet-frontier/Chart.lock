@@ -1,6 +1,6 @@
 dependencies:
 - name: frontierchart
   repository: oci://registry.sweet.security/helm
-  version: 1.0.119807+c2277fddd003556d4982b86ef4e77fc84a41ed79.c5ac65508439f92c96227bdb045152b25f1a27d4
-digest: sha256:91d40e7882d1e58a8d5382f17864e34358199ddc25e0f80b91e7564369a171e9
-generated: "2025-04-24T13:18:57.124014+01:00"
+  version: 1.0.146772+a7962a1a31ca96c56a10030555dc59c95acf3bbc
+digest: sha256:5caa40029990abe95fc23b4759e4a8a3aa181d373cd3f3ad885b784df8778e9d
+generated: "2025-10-20T10:24:30.048906595Z"

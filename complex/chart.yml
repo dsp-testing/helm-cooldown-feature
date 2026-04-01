@@ -83,7 +83,7 @@ dependencies:
     tags:
       - monitoring
   - name: jaeger
-    version: "0.71.3"
+    version: 3.4.1
     repository: "https://jaegertracing.github.io/helm-charts"
     condition: tracing.enabled
     tags:
